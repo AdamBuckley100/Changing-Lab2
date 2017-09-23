@@ -654,6 +654,7 @@ public class MyGui extends JFrame {
 				System.out.println(noOfRowsInTheTable);
 
 				String theFirstNameChangeInputted = textField_7.getText();
+
 				String theLastNameChangeInputted = textField_8.getText();
 				String theEmailChangeInputted = textField_9.getText();
 
@@ -677,12 +678,12 @@ public class MyGui extends JFrame {
 				// now change the fname,lname and email to what is in text fields of GUI.
 
 				System.out.println("look here: the id is " + theIdInputted);
-				
+
 				try {
 					String createString =
 							"UPDATE " + globalTableName +
 							" SET " + "firstname = '" + theFirstNameChangeInputted + "', " +"lastname = '" + theLastNameChangeInputted + "', " + "email = '" + theEmailChangeInputted + "'" +
-									" WHERE id = " + theIdInputted + ";";
+							" WHERE id = " + theIdInputted + ";";
 					System.out.println("LOOK HERE FULL STRING:" + createString);
 					executeUpdate(conn, createString);
 					System.out.println("Updated the table of ID: " + theIdInputted);
