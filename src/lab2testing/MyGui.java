@@ -36,7 +36,7 @@ public class MyGui extends JFrame {
 	private JLabel lblFirstName;
 	private JLabel lblLastName;
 	private JLabel lblEmail;
-	
+
 	Connection conn;
 	Statement theStatement;
 	ResultSet resultSet;
@@ -96,7 +96,7 @@ public class MyGui extends JFrame {
 			if (stmt != null) { stmt.close(); }
 		}
 	}
-	
+
 	/**
 	 * Connect to MySQL and do some stuff.
 	 */
@@ -108,11 +108,11 @@ public class MyGui extends JFrame {
 			System.out.println("got here 1");
 			conn = this.getConnection();
 			System.out.println("Connected to database");
-			
+
 			theStatement = conn.createStatement(); // let this happen ONE time.
-			
+
 			resultSet = theStatement.executeQuery("select * from web_members4"); // ONE time.
-			
+
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not connect to the database");
 			e.printStackTrace();
@@ -149,7 +149,7 @@ public class MyGui extends JFrame {
 		//			e.printStackTrace();
 		//			return;
 		//		}
-		
+
 		try {
 			resultSet.absolute(1);
 		} catch (SQLException e) {
@@ -361,27 +361,27 @@ public class MyGui extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 
 				System.out.println("in the next pressed");
-				
+
 				//we cant make a new connection each time next button is pressed!
 
 				try {
-						resultSet.next ();
-						String idVal = resultSet.getString("id");
-						String firstNameVal = resultSet.getString("firstname");
-						String lastNameVal = resultSet.getString("lastname");
-						String emailVal = resultSet.getString("email");
+					resultSet.next ();
+					String idVal = resultSet.getString("id");
+					String firstNameVal = resultSet.getString("firstname");
+					String lastNameVal = resultSet.getString("lastname");
+					String emailVal = resultSet.getString("email");
 
-						textField.setText(idVal);
-						textField_1.setText(firstNameVal);
-						textField_2.setText(lastNameVal);
-						textField_3.setText(emailVal);
-						
-						//						System.out.println (
-//								"id = " + idVal
-//								+ ", fistname = " + firstNameVal
-//								+ ", lastname = " + lastNameVal
-//								+ ", email = " + emailVal);
-					
+					textField.setText(idVal);
+					textField_1.setText(firstNameVal);
+					textField_2.setText(lastNameVal);
+					textField_3.setText(emailVal);
+
+					//						System.out.println (
+					//								"id = " + idVal
+					//								+ ", fistname = " + firstNameVal
+					//								+ ", lastname = " + lastNameVal
+					//								+ ", email = " + emailVal);
+
 				} catch (SQLException e1) {
 					System.out.println("error 4 OK?");
 					e1.printStackTrace();
@@ -402,6 +402,35 @@ public class MyGui extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
+				//begin
+
+				try {
+					resultSet.previous();
+					String idVal = resultSet.getString("id");
+					String firstNameVal = resultSet.getString("firstname");
+					String lastNameVal = resultSet.getString("lastname");
+					String emailVal = resultSet.getString("email");
+
+					textField.setText(idVal);
+					textField_1.setText(firstNameVal);
+					textField_2.setText(lastNameVal);
+					textField_3.setText(emailVal);
+
+					//						System.out.println (
+					//								"id = " + idVal
+					//								+ ", fistname = " + firstNameVal
+					//								+ ", lastname = " + lastNameVal
+					//								+ ", email = " + emailVal);
+
+				} catch (SQLException e1) {
+					System.out.println("error 4 OK?");
+					e1.printStackTrace();
+				}
+				
+				
+				
+				//end
+				
 
 			}
 		});
