@@ -96,7 +96,7 @@ public class MyGui extends JFrame {
 			if (stmt != null) { stmt.close(); }
 		}
 	}
-
+	
 	/**
 	 * Connect to MySQL and do some stuff.
 	 */
@@ -149,6 +149,13 @@ public class MyGui extends JFrame {
 		//			e.printStackTrace();
 		//			return;
 		//		}
+		
+		try {
+			resultSet.absolute(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
