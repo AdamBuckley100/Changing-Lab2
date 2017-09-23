@@ -36,6 +36,10 @@ public class MyGui extends JFrame {
 	private JLabel lblFirstName;
 	private JLabel lblLastName;
 	private JLabel lblEmail;
+	
+	Connection conn;
+	Statement theStatement;
+	ResultSet resultSet;
 
 	/** The name of the MySQL account to use (or empty for anonymous) */
 	private final String userName = "root";
@@ -61,7 +65,7 @@ public class MyGui extends JFrame {
 	 * @return
 	 * @throws SQLException
 	 */
-	public Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException { // for initial use only! establishes new connection.
 		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", this.userName);
@@ -96,14 +100,19 @@ public class MyGui extends JFrame {
 	/**
 	 * Connect to MySQL and do some stuff.
 	 */
-	public void run() {
+	public void runn() {
 
-		// Connect to MySQL
-		Connection conn = null;
+		// Connect to MySQL for first and only time needed
+		//Connection conn = null;
 		try {
 			System.out.println("got here 1");
 			conn = this.getConnection();
 			System.out.println("Connected to database");
+			
+			theStatement = conn.createStatement(); // let this happen ONE time.
+			
+			resultSet = theStatement.executeQuery("select * from web_members4"); // ONE time.
+			
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not connect to the database");
 			e.printStackTrace();
@@ -149,7 +158,7 @@ public class MyGui extends JFrame {
 	public static void main(String[] args) throws SQLException {
 
 		MyGui app = new MyGui();
-		app.run();
+		app.runn(); // db set up (should only have to happen once).
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -338,39 +347,39 @@ public class MyGui extends JFrame {
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
 
-
 		// BUTTON NEXT:
 		JButton btnNext = new JButton("Next");
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				
 				System.out.println("in the next pressed");
 				
-				Connection conn = null;
-				try {
-					conn = getConnection();
-				} catch (SQLException e1) {
-					System.out.println("error 1 OK?");
-					e1.printStackTrace();
-				}
-
-				Statement theStatement = null;
-				try {
-					theStatement = conn.createStatement();
-				} catch (SQLException e1) {
-					System.out.println("error 2 OK?");
-					e1.printStackTrace();
-				}
-
-				ResultSet resultSet = null;
-				try {
-					resultSet = theStatement.executeQuery("select * from web_members4");
-				} catch (SQLException e1) {
-					System.out.println("error 3 OK?");
-					e1.printStackTrace();
-				}
+				//we cant make a new connection each time next button is pressed!
+				
+//				Connection conn = null;
+//				try {
+//					conn = getConnection();
+//				} catch (SQLException e1) {
+//					System.out.println("error 1 OK?");
+//					e1.printStackTrace();
+//				}
+//
+//				Statement theStatement = null;
+//				try {
+//					theStatement = conn.createStatement();
+//				} catch (SQLException e1) {
+//					System.out.println("error 2 OK?");
+//					e1.printStackTrace();
+//				}
+//
+//				ResultSet resultSet = null;
+//				try {
+//					resultSet = theStatement.executeQuery("select * from web_members4");
+//				} catch (SQLException e1) {
+//					System.out.println("error 3 OK?");
+//					e1.printStackTrace();
+//				}
 
 				try {
 						resultSet.next ();
@@ -414,5 +423,4 @@ public class MyGui extends JFrame {
 		contentPane.add(btnPrevious, gbc_btnPrevious);
 
 	}
-
 }
