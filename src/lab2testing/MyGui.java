@@ -638,7 +638,7 @@ public class MyGui extends JFrame {
 				try {
 					resultSet.absolute(1);
 				} catch (SQLException e1) {
-					// Auto-generated catch block
+					// Auto-generated catch block.
 					e1.printStackTrace();
 				}
 
