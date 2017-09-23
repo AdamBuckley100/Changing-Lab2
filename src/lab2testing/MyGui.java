@@ -656,7 +656,6 @@ public class MyGui extends JFrame {
 
 				String theFirstNameChangeInputted = textField_7.getText();
 				
-				
 				String theLastNameChangeInputted = textField_8.getText();
 				String theEmailChangeInputted = textField_9.getText();
 
