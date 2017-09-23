@@ -153,7 +153,7 @@ public class MyGui extends JFrame {
 		try {
 			resultSet.absolute(1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			//Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -363,30 +363,6 @@ public class MyGui extends JFrame {
 				System.out.println("in the next pressed");
 				
 				//we cant make a new connection each time next button is pressed!
-				
-//				Connection conn = null;
-//				try {
-//					conn = getConnection();
-//				} catch (SQLException e1) {
-//					System.out.println("error 1 OK?");
-//					e1.printStackTrace();
-//				}
-//
-//				Statement theStatement = null;
-//				try {
-//					theStatement = conn.createStatement();
-//				} catch (SQLException e1) {
-//					System.out.println("error 2 OK?");
-//					e1.printStackTrace();
-//				}
-//
-//				ResultSet resultSet = null;
-//				try {
-//					resultSet = theStatement.executeQuery("select * from web_members4");
-//				} catch (SQLException e1) {
-//					System.out.println("error 3 OK?");
-//					e1.printStackTrace();
-//				}
 
 				try {
 						resultSet.next ();
@@ -394,11 +370,17 @@ public class MyGui extends JFrame {
 						String firstNameVal = resultSet.getString("firstname");
 						String lastNameVal = resultSet.getString("lastname");
 						String emailVal = resultSet.getString("email");
-						System.out.println (
-								"id = " + idVal
-								+ ", fistname = " + firstNameVal
-								+ ", lastname = " + lastNameVal
-								+ ", email = " + emailVal);
+
+						textField.setText(idVal);
+						textField_1.setText(firstNameVal);
+						textField_2.setText(lastNameVal);
+						textField_3.setText(emailVal);
+						
+						//						System.out.println (
+//								"id = " + idVal
+//								+ ", fistname = " + firstNameVal
+//								+ ", lastname = " + lastNameVal
+//								+ ", email = " + emailVal);
 					
 				} catch (SQLException e1) {
 					System.out.println("error 4 OK?");
