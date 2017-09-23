@@ -55,6 +55,9 @@ public class MyGui extends JFrame {
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
 	private final String dbName = "test2_create_db";
+	private JTextField textField_4;
+	private JLabel lblDeleteTableOption;
+	private JButton btnDeleteTheTable;
 
 	/** The name of the table we are testing with */
 	//private final String tableName = "JDBC_TEST9";
@@ -273,16 +276,17 @@ public class MyGui extends JFrame {
 	 * @throws SQLException 
 	 */
 	public MyGui() throws SQLException {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 585, 470);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		lblId = new JLabel("ID:");
@@ -395,15 +399,12 @@ public class MyGui extends JFrame {
 		gbc_btnNext.gridy = 9;
 		contentPane.add(btnNext, gbc_btnNext);
 
-
 		// BUTTON PREVIOUS:
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				//begin
-
+				
 				try {
 					resultSet.previous();
 					String idVal = resultSet.getString("id");
@@ -426,11 +427,6 @@ public class MyGui extends JFrame {
 					System.out.println("error 4 OK?");
 					e1.printStackTrace();
 				}
-				
-				
-				
-				//end
-				
 
 			}
 		});
@@ -439,6 +435,75 @@ public class MyGui extends JFrame {
 		gbc_btnPrevious.gridx = 1;
 		gbc_btnPrevious.gridy = 10;
 		contentPane.add(btnPrevious, gbc_btnPrevious);
-
+		
+		lblDeleteTableOption = new JLabel("Delete Table Option: (Please put in table name below)");
+		GridBagConstraints gbc_lblDeleteTableOption = new GridBagConstraints();
+		gbc_lblDeleteTableOption.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDeleteTableOption.gridx = 1;
+		gbc_lblDeleteTableOption.gridy = 12;
+		contentPane.add(lblDeleteTableOption, gbc_lblDeleteTableOption);
+		
+		textField_4 = new JTextField();
+		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
+		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_4.gridx = 1;
+		gbc_textField_4.gridy = 13;
+		contentPane.add(textField_4, gbc_textField_4);
+		textField_4.setColumns(10);
+		
+		btnDeleteTheTable = new JButton("Delete The Table");
+		btnDeleteTheTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				String tableNameInputted = textField_4.getText(); //textField4 is what was put in delete text input field.
+				
+				// Use that String above to drop the table specified.
+				
+				try {
+					String dropString = "DROP TABLE " + tableNameInputted;
+					executeUpdate(conn, dropString);
+					System.out.println("Dropped the table " + tableNameInputted);
+				} catch (SQLException e) {
+					System.out.println("ERROR: Could not drop the table " + tableNameInputted);
+					e.printStackTrace();
+					return;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnDeleteTheTable = new GridBagConstraints();
+		gbc_btnDeleteTheTable.gridx = 1;
+		gbc_btnDeleteTheTable.gridy = 14;
+		contentPane.add(btnDeleteTheTable, gbc_btnDeleteTheTable);
 	}
+	
+//	private void addATable() // i.e. create a new table in the database.
+//	{
+//				try {
+//					String createString =
+//							"CREATE TABLE " + this.tableName + " ( " +
+//									"ID INTEGER NOT NULL, " +
+//									"NAME varchar(40) NOT NULL, " +
+//									"STREET varchar(40) NOT NULL, " +
+//									"CITY varchar(20) NOT NULL, " +
+//									"STATE char(2) NOT NULL, " +
+//									"ZIP char(5), " +
+//									"PRIMARY KEY (ID))";
+//					this.executeUpdate(conn, createString);
+//					System.out.println("Created a table");
+//				} catch (SQLException e) {
+//					System.out.println("ERROR: Could not create the table");
+//					e.printStackTrace();
+//					return;
+//				}
+//	}
+	
+	private void deleteATable()
+	{
+		// first take in a table name from user (of table they want deleted).
+		
+		
+		
+	}
+	
 }
