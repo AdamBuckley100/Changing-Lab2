@@ -79,6 +79,7 @@ public class MyGui extends JFrame {
 
 	/** The name of the table we are testing with */
 	private final String globalTableName = "web_members4";
+	private JButton btnClickHereTo;
 
 	/**
 	 * Get a new database connection
@@ -302,9 +303,9 @@ public class MyGui extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		lblId = new JLabel("ID:");
@@ -654,7 +655,8 @@ public class MyGui extends JFrame {
 				System.out.println(noOfRowsInTheTable);
 
 				String theFirstNameChangeInputted = textField_7.getText();
-
+				
+				
 				String theLastNameChangeInputted = textField_8.getText();
 				String theEmailChangeInputted = textField_9.getText();
 
@@ -678,12 +680,12 @@ public class MyGui extends JFrame {
 				// now change the fname,lname and email to what is in text fields of GUI.
 
 				System.out.println("look here: the id is " + theIdInputted);
-
+				
 				try {
 					String createString =
 							"UPDATE " + globalTableName +
 							" SET " + "firstname = '" + theFirstNameChangeInputted + "', " +"lastname = '" + theLastNameChangeInputted + "', " + "email = '" + theEmailChangeInputted + "'" +
-							" WHERE id = " + theIdInputted + ";";
+									" WHERE id = " + theIdInputted + ";";
 					System.out.println("LOOK HERE FULL STRING:" + createString);
 					executeUpdate(conn, createString);
 					System.out.println("Updated the table of ID: " + theIdInputted);
@@ -700,5 +702,22 @@ public class MyGui extends JFrame {
 		gbc_btnConfirmUpdates.gridx = 1;
 		gbc_btnConfirmUpdates.gridy = 33;
 		contentPane.add(btnConfirmUpdates, gbc_btnConfirmUpdates);
+		
+		btnClickHereTo = new JButton("Click here to find out how to insert to a table of your choice");
+		btnClickHereTo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				//make a blank window pop up
+				
+				InsertingIntoATable ins = new InsertingIntoATable();
+				ins.setVisible(true);
+			}
+		});
+		GridBagConstraints gbc_btnClickHereTo = new GridBagConstraints();
+		gbc_btnClickHereTo.insets = new Insets(0, 0, 5, 0);
+		gbc_btnClickHereTo.gridx = 1;
+		gbc_btnClickHereTo.gridy = 34;
+		contentPane.add(btnClickHereTo, gbc_btnClickHereTo);
 	}
 }
