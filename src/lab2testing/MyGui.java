@@ -110,25 +110,25 @@ public class MyGui extends JFrame {
 			return;
 		}
 
-//		//		// Create a table
-//		try {
-//			System.out.println("got here");
-//			String createString =
-//					"CREATE TABLE " + this.tableName + " ( " +
-//							"ID INTEGER NOT NULL, " +
-//							"NAME varchar(40) NOT NULL, " +
-//							"STREET varchar(40) NOT NULL, " +
-//							"CITY varchar(20) NOT NULL, " +
-//							"STATE char(2) NOT NULL, " +
-//							"ZIP char(5), " +
-//							"PRIMARY KEY (ID))";
-//			this.executeUpdate(conn, createString);
-//			System.out.println("Created a table");
-//		} catch (SQLException e) {
-//			System.out.println("ERROR: Could not create the table");
-//			e.printStackTrace();
-//			return;
-//		}
+		//		//		// Create a table
+		//		try {
+		//			System.out.println("got here");
+		//			String createString =
+		//					"CREATE TABLE " + this.tableName + " ( " +
+		//							"ID INTEGER NOT NULL, " +
+		//							"NAME varchar(40) NOT NULL, " +
+		//							"STREET varchar(40) NOT NULL, " +
+		//							"CITY varchar(20) NOT NULL, " +
+		//							"STATE char(2) NOT NULL, " +
+		//							"ZIP char(5), " +
+		//							"PRIMARY KEY (ID))";
+		//			this.executeUpdate(conn, createString);
+		//			System.out.println("Created a table");
+		//		} catch (SQLException e) {
+		//			System.out.println("ERROR: Could not create the table");
+		//			e.printStackTrace();
+		//			return;
+		//		}
 
 		//		// Drop the table
 		//		try {
@@ -167,12 +167,12 @@ public class MyGui extends JFrame {
 	private String sendBackId() throws SQLException
 	{
 		Connection conn = getConnection();
-		
+
 		System.out.println(conn); //you can take this out if you want
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select id from web_members3");
+		ResultSet resultSet = theStatement.executeQuery("select id from web_members4");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String id = "";
@@ -181,20 +181,20 @@ public class MyGui extends JFrame {
 		{
 			id = resultSet.getString("id");
 		}
-		
+
 		System.out.println("id is " + id);
 		return id;
 	}
-	
+
 	private String sendBackFirstName() throws SQLException
 	{
 		Connection conn = getConnection();
-		
+
 		System.out.println(conn); //you can take this out if you want
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select firstname from web_members3");
+		ResultSet resultSet = theStatement.executeQuery("select firstname from web_members4");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String firstName = "";
@@ -203,20 +203,20 @@ public class MyGui extends JFrame {
 		{
 			firstName = resultSet.getString("firstname");
 		}
-		
+
 		System.out.println("First Name is " + firstName);
 		return firstName;
 	}
-	
+
 	private String sendBackLastName() throws SQLException
 	{
 		Connection conn = getConnection();
-		
+
 		System.out.println(conn); //you can take this out if you want
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select lastname from web_members3");
+		ResultSet resultSet = theStatement.executeQuery("select lastname from web_members4");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String lastName = "";
@@ -225,20 +225,20 @@ public class MyGui extends JFrame {
 		{
 			lastName = resultSet.getString("lastname");
 		}
-		
+
 		System.out.println("Last Name is " + lastName);
 		return lastName;
 	}
-	
+
 	private String sendBackEmail() throws SQLException
 	{
 		Connection conn = getConnection();
-		
+
 		System.out.println(conn); //you can take this out if you want
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select email from web_members3");
+		ResultSet resultSet = theStatement.executeQuery("select email from web_members4");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String email = "";
@@ -247,11 +247,11 @@ public class MyGui extends JFrame {
 		{
 			email = resultSet.getString("email");
 		}
-		
+
 		System.out.println("Email is " + email);
 		return email;
 	}
-	
+
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
@@ -338,12 +338,57 @@ public class MyGui extends JFrame {
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
 
-		
+
 		// BUTTON NEXT:
 		JButton btnNext = new JButton("Next");
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+
+				
+				System.out.println("in the next pressed");
+				
+				Connection conn = null;
+				try {
+					conn = getConnection();
+				} catch (SQLException e1) {
+					System.out.println("error 1 OK?");
+					e1.printStackTrace();
+				}
+
+				Statement theStatement = null;
+				try {
+					theStatement = conn.createStatement();
+				} catch (SQLException e1) {
+					System.out.println("error 2 OK?");
+					e1.printStackTrace();
+				}
+
+				ResultSet resultSet = null;
+				try {
+					resultSet = theStatement.executeQuery("select * from web_members4");
+				} catch (SQLException e1) {
+					System.out.println("error 3 OK?");
+					e1.printStackTrace();
+				}
+
+				try {
+						resultSet.next ();
+						String idVal = resultSet.getString("id");
+						String firstNameVal = resultSet.getString("firstname");
+						String lastNameVal = resultSet.getString("lastname");
+						String emailVal = resultSet.getString("email");
+						System.out.println (
+								"id = " + idVal
+								+ ", fistname = " + firstNameVal
+								+ ", lastname = " + lastNameVal
+								+ ", email = " + emailVal);
+					
+				} catch (SQLException e1) {
+					System.out.println("error 4 OK?");
+					e1.printStackTrace();
+				}
+
 			}
 		});
 		GridBagConstraints gbc_btnNext = new GridBagConstraints();
@@ -352,12 +397,14 @@ public class MyGui extends JFrame {
 		gbc_btnNext.gridy = 9;
 		contentPane.add(btnNext, gbc_btnNext);
 
-		
+
 		// BUTTON PREVIOUS:
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
+
 			}
 		});
 		GridBagConstraints gbc_btnPrevious = new GridBagConstraints();
@@ -365,7 +412,7 @@ public class MyGui extends JFrame {
 		gbc_btnPrevious.gridx = 1;
 		gbc_btnPrevious.gridy = 10;
 		contentPane.add(btnPrevious, gbc_btnPrevious);
-		
+
 	}
 
 }
