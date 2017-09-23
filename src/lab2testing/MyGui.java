@@ -303,9 +303,9 @@ public class MyGui extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		lblId = new JLabel("ID:");
@@ -495,80 +495,80 @@ public class MyGui extends JFrame {
 		gbc_btnDeleteTheTable.gridx = 1;
 		gbc_btnDeleteTheTable.gridy = 15;
 		contentPane.add(btnDeleteTheTable, gbc_btnDeleteTheTable);
+		
+				lblAddTableOption = new JLabel("Add Table Option: (Put name of table below)");
+				GridBagConstraints gbc_lblAddTableOption = new GridBagConstraints();
+				gbc_lblAddTableOption.insets = new Insets(0, 0, 5, 0);
+				gbc_lblAddTableOption.gridx = 1;
+				gbc_lblAddTableOption.gridy = 17;
+				contentPane.add(lblAddTableOption, gbc_lblAddTableOption);
+		
+				textField_5 = new JTextField();
+				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
+				gbc_textField_5.insets = new Insets(0, 0, 5, 0);
+				gbc_textField_5.gridx = 1;
+				gbc_textField_5.gridy = 18;
+				contentPane.add(textField_5, gbc_textField_5);
+				textField_5.setColumns(10);
 
 		label = new JLabel("");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
 		gbc_label.gridx = 1;
-		gbc_label.gridy = 18;
+		gbc_label.gridy = 19;
 		contentPane.add(label, gbc_label);
+		
+				btnAddtheTable = new JButton("Add The Table");
+				btnAddtheTable.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
 
-		btnAddtheTable = new JButton("Add The Table");
-		btnAddtheTable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
 
+						String tableNameInputted = textField_5.getText(); //textField4 is what was put in add text input field.
 
-				String tableNameInputted = textField_5.getText(); //textField4 is what was put in add text input field.
+						// Use that String above to add the table specified.
 
-				// Use that String above to add the table specified.
-
-				try {
-					String createString =
-							"CREATE TABLE " + tableNameInputted + " ( " +
-									"ID varchar(40), " +
-									"FIRSTNAME varchar(40), " +
-									"LASTNAME varchar(40), " +
-									"EMAIL varchar(40), " +
-									"PRIMARY KEY (ID))" ;
-					executeUpdate(conn, createString);
-					System.out.println("Created a table");
-				} catch (SQLException e) {
-					System.out.println("ERROR: Could not create the table");
-					e.printStackTrace();
-					return;
-				}
-			}
-		});
-
-		lblAddTableOption = new JLabel("Add Table Option: (Put name of table below)");
-		GridBagConstraints gbc_lblAddTableOption = new GridBagConstraints();
-		gbc_lblAddTableOption.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAddTableOption.gridx = 1;
-		gbc_lblAddTableOption.gridy = 19;
-		contentPane.add(lblAddTableOption, gbc_lblAddTableOption);
-
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.gridx = 1;
-		gbc_textField_5.gridy = 20;
-		contentPane.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
-		GridBagConstraints gbc_btnAddtheTable = new GridBagConstraints();
-		gbc_btnAddtheTable.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAddtheTable.gridx = 1;
-		gbc_btnAddtheTable.gridy = 21;
-		contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
+						try {
+							String createString =
+									"CREATE TABLE " + tableNameInputted + " ( " +
+											"ID varchar(40), " +
+											"FIRSTNAME varchar(40), " +
+											"LASTNAME varchar(40), " +
+											"EMAIL varchar(40), " +
+											"PRIMARY KEY (ID))" ;
+							executeUpdate(conn, createString);
+							System.out.println("Created a table");
+						} catch (SQLException e) {
+							System.out.println("ERROR: Could not create the table");
+							e.printStackTrace();
+							return;
+						}
+					}
+				});
+				GridBagConstraints gbc_btnAddtheTable = new GridBagConstraints();
+				gbc_btnAddtheTable.insets = new Insets(0, 0, 5, 0);
+				gbc_btnAddtheTable.gridx = 1;
+				gbc_btnAddtheTable.gridy = 20;
+				contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
 
 		lblUpdateTable = new JLabel("Update Table:");
 		GridBagConstraints gbc_lblUpdateTable = new GridBagConstraints();
 		gbc_lblUpdateTable.insets = new Insets(0, 0, 5, 0);
 		gbc_lblUpdateTable.gridx = 1;
-		gbc_lblUpdateTable.gridy = 23;
+		gbc_lblUpdateTable.gridy = 25;
 		contentPane.add(lblUpdateTable, gbc_lblUpdateTable);
 
 		lblSpecifyIdOf = new JLabel("Specify ID of person whom you want to change details for:");
 		GridBagConstraints gbc_lblSpecifyIdOf = new GridBagConstraints();
 		gbc_lblSpecifyIdOf.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSpecifyIdOf.gridx = 1;
-		gbc_lblSpecifyIdOf.gridy = 24;
+		gbc_lblSpecifyIdOf.gridy = 26;
 		contentPane.add(lblSpecifyIdOf, gbc_lblSpecifyIdOf);
 
 		textField_6 = new JTextField();
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
 		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_6.gridx = 1;
-		gbc_textField_6.gridy = 25;
+		gbc_textField_6.gridy = 27;
 		contentPane.add(textField_6, gbc_textField_6);
 		textField_6.setColumns(10);
 
@@ -576,21 +576,21 @@ public class MyGui extends JFrame {
 		GridBagConstraints gbc_lblPutInThe = new GridBagConstraints();
 		gbc_lblPutInThe.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPutInThe.gridx = 1;
-		gbc_lblPutInThe.gridy = 26;
+		gbc_lblPutInThe.gridy = 28;
 		contentPane.add(lblPutInThe, gbc_lblPutInThe);
 
 		lblFirstName_1 = new JLabel("First Name:");
 		GridBagConstraints gbc_lblFirstName_1 = new GridBagConstraints();
 		gbc_lblFirstName_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirstName_1.gridx = 1;
-		gbc_lblFirstName_1.gridy = 27;
+		gbc_lblFirstName_1.gridy = 29;
 		contentPane.add(lblFirstName_1, gbc_lblFirstName_1);
 
 		textField_7 = new JTextField();
 		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
 		gbc_textField_7.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_7.gridx = 1;
-		gbc_textField_7.gridy = 28;
+		gbc_textField_7.gridy = 30;
 		contentPane.add(textField_7, gbc_textField_7);
 		textField_7.setColumns(10);
 
@@ -598,14 +598,14 @@ public class MyGui extends JFrame {
 		GridBagConstraints gbc_lblLastName_1 = new GridBagConstraints();
 		gbc_lblLastName_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblLastName_1.gridx = 1;
-		gbc_lblLastName_1.gridy = 29;
+		gbc_lblLastName_1.gridy = 31;
 		contentPane.add(lblLastName_1, gbc_lblLastName_1);
 
 		textField_8 = new JTextField();
 		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
 		gbc_textField_8.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_8.gridx = 1;
-		gbc_textField_8.gridy = 30;
+		gbc_textField_8.gridy = 32;
 		contentPane.add(textField_8, gbc_textField_8);
 		textField_8.setColumns(10);
 
@@ -613,14 +613,14 @@ public class MyGui extends JFrame {
 		GridBagConstraints gbc_lblEmail_1 = new GridBagConstraints();
 		gbc_lblEmail_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblEmail_1.gridx = 1;
-		gbc_lblEmail_1.gridy = 31;
+		gbc_lblEmail_1.gridy = 33;
 		contentPane.add(lblEmail_1, gbc_lblEmail_1);
 
 		textField_9 = new JTextField();
 		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
 		gbc_textField_9.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_9.gridx = 1;
-		gbc_textField_9.gridy = 32;
+		gbc_textField_9.gridy = 34;
 		contentPane.add(textField_9, gbc_textField_9);
 		textField_9.setColumns(10);
 
@@ -699,7 +699,7 @@ public class MyGui extends JFrame {
 		GridBagConstraints gbc_btnConfirmUpdates = new GridBagConstraints();
 		gbc_btnConfirmUpdates.insets = new Insets(0, 0, 5, 0);
 		gbc_btnConfirmUpdates.gridx = 1;
-		gbc_btnConfirmUpdates.gridy = 33;
+		gbc_btnConfirmUpdates.gridy = 35;
 		contentPane.add(btnConfirmUpdates, gbc_btnConfirmUpdates);
 		
 		btnClickHereTo = new JButton("Click here to find out how to insert to a table of your choice");
@@ -716,7 +716,7 @@ public class MyGui extends JFrame {
 		GridBagConstraints gbc_btnClickHereTo = new GridBagConstraints();
 		gbc_btnClickHereTo.insets = new Insets(0, 0, 5, 0);
 		gbc_btnClickHereTo.gridx = 1;
-		gbc_btnClickHereTo.gridy = 34;
+		gbc_btnClickHereTo.gridy = 36;
 		contentPane.add(btnClickHereTo, gbc_btnClickHereTo);
 	}
 }

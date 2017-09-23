@@ -53,7 +53,7 @@ public class InsertingIntoATable extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	
-	private MyGui theGuiClass;
+	public MyGui theGuiClass;
 	
 //	private Connection thisClassesConn;
 	
@@ -208,7 +208,21 @@ public class InsertingIntoATable extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				
 				// now access stuff i need in myGUI class
-					Connection conn = theGuiClass.conn;
+				
+				MyGui theGuiClass = null;
+				try {
+					theGuiClass = new MyGui();
+				} catch (SQLException e1) {
+					System.out.println("GUI class instantiation error occured");
+					e1.printStackTrace();
+				}
+				Connection conn = null;
+				try {
+					conn = theGuiClass.getConnection();
+				} catch (SQLException e1) {
+					System.out.println("Error 2");
+					e1.printStackTrace();
+				}
 				
 				String tableToAddTo = textField.getText();
 				
@@ -220,7 +234,7 @@ public class InsertingIntoATable extends JFrame {
 				try {
 					String createString =
 							"INSERT INTO " + tableToAddTo +
-							" VALUES (" + newTableEntrysId + ", " + newTableEntrysFirstName +", " + newTableEntrysLastName + ", " + newTableEntrysEmail + ");";
+							" VALUES ('" + newTableEntrysId + "', '" + newTableEntrysFirstName + "', '" + newTableEntrysLastName + "', '" + newTableEntrysEmail + "');";
 					System.out.println("LOOK HERE FULL STRING OF INSERT INTO:" + createString);
 					System.out.println("Conn of the new class: " + conn);
 					theGuiClass.executeUpdate(conn, createString);
