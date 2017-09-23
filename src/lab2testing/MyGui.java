@@ -53,7 +53,7 @@ public class MyGui extends JFrame {
 	private final String dbName = "test2_create_db";
 
 	/** The name of the table we are testing with */
-	private final String tableName = "JDBC_TEST9";
+	//private final String tableName = "JDBC_TEST9";
 
 	/**
 	 * Get a new database connection
@@ -110,25 +110,25 @@ public class MyGui extends JFrame {
 			return;
 		}
 
-		//		// Create a table
-		try {
-			System.out.println("got here");
-			String createString =
-					"CREATE TABLE " + this.tableName + " ( " +
-							"ID INTEGER NOT NULL, " +
-							"NAME varchar(40) NOT NULL, " +
-							"STREET varchar(40) NOT NULL, " +
-							"CITY varchar(20) NOT NULL, " +
-							"STATE char(2) NOT NULL, " +
-							"ZIP char(5), " +
-							"PRIMARY KEY (ID))";
-			this.executeUpdate(conn, createString);
-			System.out.println("Created a table");
-		} catch (SQLException e) {
-			System.out.println("ERROR: Could not create the table");
-			e.printStackTrace();
-			return;
-		}
+//		//		// Create a table
+//		try {
+//			System.out.println("got here");
+//			String createString =
+//					"CREATE TABLE " + this.tableName + " ( " +
+//							"ID INTEGER NOT NULL, " +
+//							"NAME varchar(40) NOT NULL, " +
+//							"STREET varchar(40) NOT NULL, " +
+//							"CITY varchar(20) NOT NULL, " +
+//							"STATE char(2) NOT NULL, " +
+//							"ZIP char(5), " +
+//							"PRIMARY KEY (ID))";
+//			this.executeUpdate(conn, createString);
+//			System.out.println("Created a table");
+//		} catch (SQLException e) {
+//			System.out.println("ERROR: Could not create the table");
+//			e.printStackTrace();
+//			return;
+//		}
 
 		//		// Drop the table
 		//		try {
@@ -172,7 +172,7 @@ public class MyGui extends JFrame {
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select * from web_members3 where id=11");
+		ResultSet resultSet = theStatement.executeQuery("select id from web_members3");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String id = "";
@@ -184,6 +184,72 @@ public class MyGui extends JFrame {
 		
 		System.out.println("id is " + id);
 		return id;
+	}
+	
+	private String sendBackFirstName() throws SQLException
+	{
+		Connection conn = getConnection();
+		
+		System.out.println(conn); //you can take this out if you want
+
+		Statement theStatement = conn.createStatement();
+
+		ResultSet resultSet = theStatement.executeQuery("select firstname from web_members3");
+		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
+
+		String firstName = "";
+
+		if( resultSet.next() )
+		{
+			firstName = resultSet.getString("firstname");
+		}
+		
+		System.out.println("First Name is " + firstName);
+		return firstName;
+	}
+	
+	private String sendBackLastName() throws SQLException
+	{
+		Connection conn = getConnection();
+		
+		System.out.println(conn); //you can take this out if you want
+
+		Statement theStatement = conn.createStatement();
+
+		ResultSet resultSet = theStatement.executeQuery("select lastname from web_members3");
+		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
+
+		String lastName = "";
+
+		if( resultSet.next() )
+		{
+			lastName = resultSet.getString("lastname");
+		}
+		
+		System.out.println("Last Name is " + lastName);
+		return lastName;
+	}
+	
+	private String sendBackEmail() throws SQLException
+	{
+		Connection conn = getConnection();
+		
+		System.out.println(conn); //you can take this out if you want
+
+		Statement theStatement = conn.createStatement();
+
+		ResultSet resultSet = theStatement.executeQuery("select email from web_members3");
+		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
+
+		String email = "";
+
+		if( resultSet.next() )
+		{
+			email = resultSet.getString("email");
+		}
+		
+		System.out.println("Email is " + email);
+		return email;
 	}
 	
 	/**
@@ -210,7 +276,7 @@ public class MyGui extends JFrame {
 		gbc_lblId.gridy = 1;
 		contentPane.add(lblId, gbc_lblId);
 
-		textField = new JTextField(20);
+		textField = new JTextField(17);
 		//textField.setText("Hello");
 		String theId = sendBackId();
 		textField.setText(theId);
@@ -228,7 +294,9 @@ public class MyGui extends JFrame {
 		gbc_lblFirstName.gridy = 3;
 		contentPane.add(lblFirstName, gbc_lblFirstName);
 
-		textField_1 = new JTextField(20);
+		textField_1 = new JTextField(18);
+		String theFirstName = sendBackFirstName();
+		textField_1.setText(theFirstName);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_1.gridx = 1;
@@ -244,6 +312,8 @@ public class MyGui extends JFrame {
 		contentPane.add(lblLastName, gbc_lblLastName);
 
 		textField_2 = new JTextField(20);
+		String theLastName = sendBackFirstName();
+		textField_2.setText(theLastName);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_2.gridx = 1;
@@ -258,7 +328,9 @@ public class MyGui extends JFrame {
 		gbc_lblEmail.gridy = 7;
 		contentPane.add(lblEmail, gbc_lblEmail);
 
-		textField_3 = new JTextField(20);
+		textField_3 = new JTextField(19);
+		String theEmail = sendBackEmail();
+		textField_3.setText(theEmail);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
 		gbc_textField_3.gridx = 1;
@@ -266,6 +338,8 @@ public class MyGui extends JFrame {
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
 
+		
+		// BUTTON NEXT:
 		JButton btnNext = new JButton("Next");
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
@@ -278,6 +352,8 @@ public class MyGui extends JFrame {
 		gbc_btnNext.gridy = 9;
 		contentPane.add(btnNext, gbc_btnNext);
 
+		
+		// BUTTON PREVIOUS:
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
@@ -289,6 +365,7 @@ public class MyGui extends JFrame {
 		gbc_btnPrevious.gridx = 1;
 		gbc_btnPrevious.gridy = 10;
 		contentPane.add(btnPrevious, gbc_btnPrevious);
+		
 	}
 
 }
