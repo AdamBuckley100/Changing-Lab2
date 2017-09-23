@@ -64,6 +64,9 @@ public class MyGui extends JFrame {
 	private JTextField textField_5;
 	private JButton btnAddtheTable;
 	private JLabel label;
+	private JLabel lblUpdateTable;
+	private JLabel lblSpecifyIdOf;
+	private JTextField textField_6;
 
 	/** The name of the table we are testing with */
 	//private final String tableName = "JDBC_TEST9";
@@ -498,13 +501,6 @@ public class MyGui extends JFrame {
 				String tableNameInputted = textField_5.getText(); //textField4 is what was put in add text input field.
 
 				// Use that String above to add the table specified.
-				
-				// 6789
-				
-//				String theId = textField_6.getText();
-//				String theFirstName = textField_7.getText();
-//				String theLastName = textField_8.getText();
-//				String theEmail = textField_9.getText();
 
 				try {
 					String createString =
@@ -543,27 +539,27 @@ public class MyGui extends JFrame {
 		gbc_btnAddtheTable.gridx = 1;
 		gbc_btnAddtheTable.gridy = 21;
 		contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
+		
+		lblUpdateTable = new JLabel("Update Table:");
+		GridBagConstraints gbc_lblUpdateTable = new GridBagConstraints();
+		gbc_lblUpdateTable.insets = new Insets(0, 0, 5, 0);
+		gbc_lblUpdateTable.gridx = 1;
+		gbc_lblUpdateTable.gridy = 23;
+		contentPane.add(lblUpdateTable, gbc_lblUpdateTable);
+		
+		lblSpecifyIdOf = new JLabel("Specify ID of person whom you want to change details for:");
+		GridBagConstraints gbc_lblSpecifyIdOf = new GridBagConstraints();
+		gbc_lblSpecifyIdOf.insets = new Insets(0, 0, 5, 0);
+		gbc_lblSpecifyIdOf.gridx = 1;
+		gbc_lblSpecifyIdOf.gridy = 24;
+		contentPane.add(lblSpecifyIdOf, gbc_lblSpecifyIdOf);
+		
+		textField_6 = new JTextField();
+		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
+		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_6.gridx = 1;
+		gbc_textField_6.gridy = 25;
+		contentPane.add(textField_6, gbc_textField_6);
+		textField_6.setColumns(10);
 	}
-	
-//	private void addATable() // i.e. create a new table in the database.
-//	{
-//				try {
-//					String createString =
-//							"CREATE TABLE " + this.tableName + " ( " +
-//									"ID INTEGER NOT NULL, " +
-//									"NAME varchar(40) NOT NULL, " +
-//									"STREET varchar(40) NOT NULL, " +
-//									"CITY varchar(20) NOT NULL, " +
-//									"STATE char(2) NOT NULL, " +
-//									"ZIP char(5), " +
-//									"PRIMARY KEY (ID))";
-//					this.executeUpdate(conn, createString);
-//					System.out.println("Created a table");
-//				} catch (SQLException e) {
-//					System.out.println("ERROR: Could not create the table");
-//					e.printStackTrace();
-//					return;
-//				}
-//	}
-	
 }
