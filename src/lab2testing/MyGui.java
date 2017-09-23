@@ -36,7 +36,7 @@ public class MyGui extends JFrame {
 	private JLabel lblFirstName;
 	private JLabel lblLastName;
 	private JLabel lblEmail;
-	
+
 	/** The name of the MySQL account to use (or empty for anonymous) */
 	private final String userName = "root";
 
@@ -111,24 +111,24 @@ public class MyGui extends JFrame {
 		}
 
 		//		// Create a table
-				try {
-					System.out.println("got here");
-					String createString =
-							"CREATE TABLE " + this.tableName + " ( " +
-									"ID INTEGER NOT NULL, " +
-									"NAME varchar(40) NOT NULL, " +
-									"STREET varchar(40) NOT NULL, " +
-									"CITY varchar(20) NOT NULL, " +
-									"STATE char(2) NOT NULL, " +
-									"ZIP char(5), " +
-									"PRIMARY KEY (ID))";
-					this.executeUpdate(conn, createString);
-					System.out.println("Created a table");
-				} catch (SQLException e) {
-					System.out.println("ERROR: Could not create the table");
-					e.printStackTrace();
-					return;
-				}
+		try {
+			System.out.println("got here");
+			String createString =
+					"CREATE TABLE " + this.tableName + " ( " +
+							"ID INTEGER NOT NULL, " +
+							"NAME varchar(40) NOT NULL, " +
+							"STREET varchar(40) NOT NULL, " +
+							"CITY varchar(20) NOT NULL, " +
+							"STATE char(2) NOT NULL, " +
+							"ZIP char(5), " +
+							"PRIMARY KEY (ID))";
+			this.executeUpdate(conn, createString);
+			System.out.println("Created a table");
+		} catch (SQLException e) {
+			System.out.println("ERROR: Could not create the table");
+			e.printStackTrace();
+			return;
+		}
 
 		//		// Drop the table
 		//		try {
@@ -144,18 +144,19 @@ public class MyGui extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @throws SQLException 
 	 */
-	public static void main(String[] args) {
-	
+	public static void main(String[] args) throws SQLException {
+
 		MyGui app = new MyGui();
 		app.run();
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					//MyGui frame = new MyGui();
 					app.setVisible(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -163,10 +164,33 @@ public class MyGui extends JFrame {
 		});
 	}
 
+	private String sendBackId() throws SQLException
+	{
+		Connection conn = getConnection();
+		
+		System.out.println(conn); //you can take this out if you want
+
+		Statement theStatement = conn.createStatement();
+
+		ResultSet resultSet = theStatement.executeQuery("select * from web_members3 where id=11");
+		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
+
+		String id = "";
+
+		if( resultSet.next() )
+		{
+			id = resultSet.getString("id");
+		}
+		
+		System.out.println("id is " + id);
+		return id;
+	}
+	
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public MyGui() {
+	public MyGui() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -178,30 +202,32 @@ public class MyGui extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		lblId = new JLabel("ID:");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
 		gbc_lblId.insets = new Insets(0, 0, 5, 0);
 		gbc_lblId.gridx = 1;
 		gbc_lblId.gridy = 1;
 		contentPane.add(lblId, gbc_lblId);
-		
+
 		textField = new JTextField(20);
-		textField.setText("Hello");
+		//textField.setText("Hello");
+		String theId = sendBackId();
+		textField.setText(theId);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 2;
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
-		
+
 		lblFirstName = new JLabel("First Name:");
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirstName.gridx = 1;
 		gbc_lblFirstName.gridy = 3;
 		contentPane.add(lblFirstName, gbc_lblFirstName);
-		
+
 		textField_1 = new JTextField(20);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
@@ -209,14 +235,14 @@ public class MyGui extends JFrame {
 		gbc_textField_1.gridy = 4;
 		contentPane.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
-		
+
 		lblLastName = new JLabel("Last Name:");
 		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
 		gbc_lblLastName.insets = new Insets(0, 0, 5, 0);
 		gbc_lblLastName.gridx = 1;
 		gbc_lblLastName.gridy = 5;
 		contentPane.add(lblLastName, gbc_lblLastName);
-		
+
 		textField_2 = new JTextField(20);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
@@ -224,14 +250,14 @@ public class MyGui extends JFrame {
 		gbc_textField_2.gridy = 6;
 		contentPane.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
-		
+
 		lblEmail = new JLabel("Email:");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.insets = new Insets(0, 0, 5, 0);
 		gbc_lblEmail.gridx = 1;
 		gbc_lblEmail.gridy = 7;
 		contentPane.add(lblEmail, gbc_lblEmail);
-		
+
 		textField_3 = new JTextField(20);
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
 		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
@@ -239,7 +265,7 @@ public class MyGui extends JFrame {
 		gbc_textField_3.gridy = 8;
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
-		
+
 		JButton btnNext = new JButton("Next");
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
@@ -251,7 +277,7 @@ public class MyGui extends JFrame {
 		gbc_btnNext.gridx = 1;
 		gbc_btnNext.gridy = 9;
 		contentPane.add(btnNext, gbc_btnNext);
-		
+
 		JButton btnPrevious = new JButton("Previous");
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
