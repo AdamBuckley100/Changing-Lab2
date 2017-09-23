@@ -57,6 +57,7 @@ public class MyGui extends JFrame {
 
 	/** The name of the database we are testing with (this default is installed with MySQL) */
 	private final String dbName = "test2_create_db";
+
 	private JTextField textField_4;
 	private JLabel lblDeleteTableOption;
 	private JButton btnDeleteTheTable;
@@ -67,9 +68,17 @@ public class MyGui extends JFrame {
 	private JLabel lblUpdateTable;
 	private JLabel lblSpecifyIdOf;
 	private JTextField textField_6;
+	private JLabel lblPutInThe;
+	private JLabel lblFirstName_1;
+	private JTextField textField_7;
+	private JLabel lblLastName_1;
+	private JTextField textField_8;
+	private JLabel lblEmail_1;
+	private JTextField textField_9;
+	private JButton btnConfirmUpdates;
 
 	/** The name of the table we are testing with */
-	//private final String tableName = "JDBC_TEST9";
+	private final String globalTableName = "web_members4";
 
 	/**
 	 * Get a new database connection
@@ -285,7 +294,7 @@ public class MyGui extends JFrame {
 	 * @throws SQLException 
 	 */
 	public MyGui() throws SQLException {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 725, 777);
 		contentPane = new JPanel();
@@ -293,9 +302,9 @@ public class MyGui extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 		lblId = new JLabel("ID:");
@@ -413,7 +422,7 @@ public class MyGui extends JFrame {
 		btnPrevious.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				try {
 					resultSet.previous();
 					String idVal = resultSet.getString("id");
@@ -444,16 +453,16 @@ public class MyGui extends JFrame {
 		gbc_btnPrevious.gridx = 1;
 		gbc_btnPrevious.gridy = 10;
 		contentPane.add(btnPrevious, gbc_btnPrevious);
-		
+
 		btnDeleteTheTable = new JButton("Delete The Table");
 		btnDeleteTheTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 				String tableNameInputted = textField_4.getText(); //textField4 is what was put in delete text input field.
-				
+
 				// Use that String above to drop the table specified.
-				
+
 				try {
 					String dropString = "DROP TABLE " + tableNameInputted;
 					executeUpdate(conn, dropString);
@@ -465,14 +474,14 @@ public class MyGui extends JFrame {
 				}
 			}
 		});
-		
+
 		lblDeleteTableOption = new JLabel("Delete Table Option: (Please put in table name below)");
 		GridBagConstraints gbc_lblDeleteTableOption = new GridBagConstraints();
 		gbc_lblDeleteTableOption.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDeleteTableOption.gridx = 1;
 		gbc_lblDeleteTableOption.gridy = 13;
 		contentPane.add(lblDeleteTableOption, gbc_lblDeleteTableOption);
-		
+
 		textField_4 = new JTextField();
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 		gbc_textField_4.insets = new Insets(0, 0, 5, 0);
@@ -485,14 +494,14 @@ public class MyGui extends JFrame {
 		gbc_btnDeleteTheTable.gridx = 1;
 		gbc_btnDeleteTheTable.gridy = 15;
 		contentPane.add(btnDeleteTheTable, gbc_btnDeleteTheTable);
-		
+
 		label = new JLabel("");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 18;
 		contentPane.add(label, gbc_label);
-		
+
 		btnAddtheTable = new JButton("Add The Table");
 		btnAddtheTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -519,14 +528,14 @@ public class MyGui extends JFrame {
 				}
 			}
 		});
-		
+
 		lblAddTableOption = new JLabel("Add Table Option: (Put name of table below)");
 		GridBagConstraints gbc_lblAddTableOption = new GridBagConstraints();
 		gbc_lblAddTableOption.insets = new Insets(0, 0, 5, 0);
 		gbc_lblAddTableOption.gridx = 1;
 		gbc_lblAddTableOption.gridy = 19;
 		contentPane.add(lblAddTableOption, gbc_lblAddTableOption);
-		
+
 		textField_5 = new JTextField();
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
 		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
@@ -539,21 +548,21 @@ public class MyGui extends JFrame {
 		gbc_btnAddtheTable.gridx = 1;
 		gbc_btnAddtheTable.gridy = 21;
 		contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
-		
+
 		lblUpdateTable = new JLabel("Update Table:");
 		GridBagConstraints gbc_lblUpdateTable = new GridBagConstraints();
 		gbc_lblUpdateTable.insets = new Insets(0, 0, 5, 0);
 		gbc_lblUpdateTable.gridx = 1;
 		gbc_lblUpdateTable.gridy = 23;
 		contentPane.add(lblUpdateTable, gbc_lblUpdateTable);
-		
+
 		lblSpecifyIdOf = new JLabel("Specify ID of person whom you want to change details for:");
 		GridBagConstraints gbc_lblSpecifyIdOf = new GridBagConstraints();
 		gbc_lblSpecifyIdOf.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSpecifyIdOf.gridx = 1;
 		gbc_lblSpecifyIdOf.gridy = 24;
 		contentPane.add(lblSpecifyIdOf, gbc_lblSpecifyIdOf);
-		
+
 		textField_6 = new JTextField();
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
 		gbc_textField_6.insets = new Insets(0, 0, 5, 0);
@@ -561,5 +570,134 @@ public class MyGui extends JFrame {
 		gbc_textField_6.gridy = 25;
 		contentPane.add(textField_6, gbc_textField_6);
 		textField_6.setColumns(10);
+
+		lblPutInThe = new JLabel("Put in the changed First Name, Last name or/and Email Below:");
+		GridBagConstraints gbc_lblPutInThe = new GridBagConstraints();
+		gbc_lblPutInThe.insets = new Insets(0, 0, 5, 0);
+		gbc_lblPutInThe.gridx = 1;
+		gbc_lblPutInThe.gridy = 26;
+		contentPane.add(lblPutInThe, gbc_lblPutInThe);
+
+		lblFirstName_1 = new JLabel("First Name:");
+		GridBagConstraints gbc_lblFirstName_1 = new GridBagConstraints();
+		gbc_lblFirstName_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblFirstName_1.gridx = 1;
+		gbc_lblFirstName_1.gridy = 27;
+		contentPane.add(lblFirstName_1, gbc_lblFirstName_1);
+
+		textField_7 = new JTextField();
+		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
+		gbc_textField_7.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_7.gridx = 1;
+		gbc_textField_7.gridy = 28;
+		contentPane.add(textField_7, gbc_textField_7);
+		textField_7.setColumns(10);
+
+		lblLastName_1 = new JLabel("Last Name:");
+		GridBagConstraints gbc_lblLastName_1 = new GridBagConstraints();
+		gbc_lblLastName_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblLastName_1.gridx = 1;
+		gbc_lblLastName_1.gridy = 29;
+		contentPane.add(lblLastName_1, gbc_lblLastName_1);
+
+		textField_8 = new JTextField();
+		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
+		gbc_textField_8.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_8.gridx = 1;
+		gbc_textField_8.gridy = 30;
+		contentPane.add(textField_8, gbc_textField_8);
+		textField_8.setColumns(10);
+
+		lblEmail_1 = new JLabel("Email:");
+		GridBagConstraints gbc_lblEmail_1 = new GridBagConstraints();
+		gbc_lblEmail_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblEmail_1.gridx = 1;
+		gbc_lblEmail_1.gridy = 31;
+		contentPane.add(lblEmail_1, gbc_lblEmail_1);
+
+		textField_9 = new JTextField();
+		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
+		gbc_textField_9.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_9.gridx = 1;
+		gbc_textField_9.gridy = 32;
+		contentPane.add(textField_9, gbc_textField_9);
+		textField_9.setColumns(10);
+
+		btnConfirmUpdates = new JButton("Confirm Updates");
+		btnConfirmUpdates.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				//here the code goes.
+
+				String theIdInputted = textField_6.getText();
+
+				int noOfRowsInTheTable = 1;
+
+				try {
+					resultSet.absolute(1);
+				} catch (SQLException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				try {
+					while( resultSet.next() != false)
+					{
+						noOfRowsInTheTable++;
+					}
+				} catch (SQLException e) {
+					//Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				System.out.println(noOfRowsInTheTable);
+
+				String theFirstNameChangeInputted = textField_7.getText();
+				String theLastNameChangeInputted = textField_8.getText();
+				String theEmailChangeInputted = textField_9.getText();
+
+				boolean foundARowInTheTableThatHasSpecifiedId = false;
+
+				try {
+					while( resultSet.next() != false && foundARowInTheTableThatHasSpecifiedId == false)
+					{
+						if( resultSet.getString("id") != theIdInputted )
+						{
+							foundARowInTheTableThatHasSpecifiedId = true;
+						}
+					}
+				} catch (SQLException e) {
+					// Auto-generated catch block
+					e.printStackTrace();
+				}	
+
+				// ok so we found a row in the table that has an id that was specified by the user.
+
+				// now change the fname,lname and email to what is in text fields of GUI.
+
+				System.out.println("look here: the id is " + theIdInputted);
+				
+				try {
+					String createString =
+							"UPDATE " + globalTableName +
+							" SET " + "firstname = '" + theFirstNameChangeInputted + "', " +"lastname = '" + theLastNameChangeInputted + "', " + "email = '" + theEmailChangeInputted + "'" +
+									" WHERE id = " + theIdInputted + ";";
+					System.out.println("LOOK HERE FULL STRING:" + createString);
+					executeUpdate(conn, createString);
+					System.out.println("Updated the table of ID: " + theIdInputted);
+				} catch (SQLException e) {
+					System.out.println("ERROR: Could not update the table");
+					e.printStackTrace();
+					return;
+				}
+
+			}
+		});
+		GridBagConstraints gbc_btnConfirmUpdates = new GridBagConstraints();
+		gbc_btnConfirmUpdates.insets = new Insets(0, 0, 5, 0);
+		gbc_btnConfirmUpdates.gridx = 1;
+		gbc_btnConfirmUpdates.gridy = 33;
+		contentPane.add(btnConfirmUpdates, gbc_btnConfirmUpdates);
 	}
 }
