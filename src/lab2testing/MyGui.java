@@ -294,6 +294,18 @@ public class MyGui extends JFrame {
 		System.out.println("Email is " + email);
 		return email;
 	}
+	
+	public int getNumberImAt() throws SQLException
+	{		
+		while ( resultSet.next() != false )
+		{
+			resultSet.next();
+		}
+		
+		int theId = resultSet.getInt("id");
+		
+		return theId;
+	}
 
 	/**
 	 * Create the frame.

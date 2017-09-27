@@ -48,7 +48,6 @@ public class InsertingIntoATable extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
@@ -142,21 +141,6 @@ public class InsertingIntoATable extends JFrame {
 		gbc_label.gridy = 4;
 		contentPane.add(label, gbc_label);
 		
-		JLabel lblId = new JLabel("ID:");
-		GridBagConstraints gbc_lblId = new GridBagConstraints();
-		gbc_lblId.insets = new Insets(0, 0, 5, 5);
-		gbc_lblId.gridx = 4;
-		gbc_lblId.gridy = 5;
-		contentPane.add(lblId, gbc_lblId);
-		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 6;
-		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
-		
 		JLabel lblFirstName = new JLabel("First Name:");
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.insets = new Insets(0, 0, 5, 5);
@@ -226,7 +210,18 @@ public class InsertingIntoATable extends JFrame {
 				
 				String tableToAddTo = textField.getText();
 				
-				String newTableEntrysId = textField_1.getText();
+				//String newTableEntrysId = textField_1.getText();
+				
+				int theIdOfTheLastInTable = 0;
+				
+				try {
+					System.out.println("KKKKKK " + theGuiClass);
+					theIdOfTheLastInTable = theGuiClass.getNumberImAt();
+				} catch (SQLException e1) {
+					// Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				String newTableEntrysFirstName = textField_2.getText();
 				String newTableEntrysLastName = textField_3.getText();
 				String newTableEntrysEmail = textField_4.getText();
@@ -234,7 +229,7 @@ public class InsertingIntoATable extends JFrame {
 				try {
 					String createString =
 							"INSERT INTO " + tableToAddTo +
-							" VALUES ('" + newTableEntrysId + "', '" + newTableEntrysFirstName + "', '" + newTableEntrysLastName + "', '" + newTableEntrysEmail + "');";
+							" VALUES ('" + theIdOfTheLastInTable + "', '" + newTableEntrysFirstName + "', '" + newTableEntrysLastName + "', '" + newTableEntrysEmail + "');";
 					System.out.println("LOOK HERE FULL STRING OF INSERT INTO:" + createString);
 					System.out.println("Conn of the new class: " + conn);
 					theGuiClass.executeUpdate(conn, createString);
@@ -244,7 +239,6 @@ public class InsertingIntoATable extends JFrame {
 					e.printStackTrace();
 					return;
 				}
-				
 			}
 		});
 		GridBagConstraints gbc_btnConfirmAddition = new GridBagConstraints();
@@ -253,5 +247,4 @@ public class InsertingIntoATable extends JFrame {
 		gbc_btnConfirmAddition.gridy = 14;
 		contentPane.add(btnConfirmAddition, gbc_btnConfirmAddition);
 	}
-
 }
