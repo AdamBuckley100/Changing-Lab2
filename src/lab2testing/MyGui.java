@@ -77,10 +77,16 @@ public class MyGui extends JFrame {
 	private JTextField textField_9;
 	private JButton btnConfirmUpdates;
 
+	
 	/** The name of the table we are testing with */
 	private final String globalTableName = "web_members5";
 	private JButton btnClickHereTo;
 
+	private void assignConnNull()
+	{
+		conn = null;
+	}
+	
 	/**
 	 * Get a new database connection
 	 * 
@@ -216,10 +222,10 @@ public class MyGui extends JFrame {
 		String id = "";
 
 		int theId;
-		
+
 		if( resultSet.next() )
 		{
-			
+
 			//id = resultSet.getString("id"); String.valueOf(i)
 			theId = resultSet.getInt("id");
 			id = String.valueOf(theId);
@@ -294,13 +300,24 @@ public class MyGui extends JFrame {
 		System.out.println("Email is " + email);
 		return email;
 	}
-	
+
 	public int getNumberImAt() throws SQLException // was int
 	{		
+		int theId = 0;
+		
+		assignConnNull();
+		
 		if (conn == null)
 		{
-		runn();
+			runn();
 		}
+		
+		if( resultSet.getFetchSize() == 0)
+		{
+			theId = 0;
+		}
+		else
+		{
 			
 		System.out.println("kkkkkkkkkkkkkkkkkkkkkk");
 		while ( resultSet.next() != false )
@@ -308,9 +325,11 @@ public class MyGui extends JFrame {
 			resultSet.next();
 		}
 		
-		int theId = resultSet.getInt("id");
+		resultSet.previous();
+
+		theId = resultSet.getInt("id");
 		//int theId = resultSet.getInt("id");
-		
+		}
 		return theId;
 	}
 
@@ -709,7 +728,7 @@ public class MyGui extends JFrame {
 		btnConfirmUpdates.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
+				
 				//here the code goes.
 
 				String theIdInputted = textField_6.getText();
