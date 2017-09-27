@@ -455,7 +455,34 @@ public class MyGui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				try {
-					resultSet.previous();
+					
+					//new
+				
+					boolean whatIsPrevious = true;
+					
+					if ( (whatIsPrevious = resultSet.previous() ) == false ) // if theres nothing next
+					{
+						if (whatIsPrevious == false) // no prev call made
+						{
+							//dont allow it to go past at all
+							// show the next on screen (next IS the first one)
+							
+							resultSet.next();
+							
+							String idVal = resultSet.getString("id");
+							String firstNameVal = resultSet.getString("firstname");
+							String lastNameVal = resultSet.getString("lastname");
+							String emailVal = resultSet.getString("email");
+							
+							textField.setText(idVal);
+							textField_1.setText(firstNameVal);
+							textField_2.setText(lastNameVal);
+							textField_3.setText(emailVal);
+						}
+					}
+//					else
+//					{
+					//end of new
 					String idVal = resultSet.getString("id");
 					String firstNameVal = resultSet.getString("firstname");
 					String lastNameVal = resultSet.getString("lastname");
@@ -471,7 +498,7 @@ public class MyGui extends JFrame {
 					//								+ ", fistname = " + firstNameVal
 					//								+ ", lastname = " + lastNameVal
 					//								+ ", email = " + emailVal);
-
+//					}
 				} catch (SQLException e1) {
 					System.out.println("error 4 OK?");
 					e1.printStackTrace();
