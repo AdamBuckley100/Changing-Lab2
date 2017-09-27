@@ -52,6 +52,7 @@ public class InsertingIntoATable extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	
+	Connection conn;
 	public MyGui theGuiClass;
 	
 //	private Connection thisClassesConn;
@@ -194,6 +195,7 @@ public class InsertingIntoATable extends JFrame {
 				// now access stuff i need in myGUI class
 				
 				MyGui theGuiClass = null;
+				
 				try {
 					theGuiClass = new MyGui();
 				} catch (SQLException e1) {
@@ -207,7 +209,7 @@ public class InsertingIntoATable extends JFrame {
 					System.out.println("Error 2");
 					e1.printStackTrace();
 				}
-				
+
 				String tableToAddTo = textField.getText();
 				
 				//String newTableEntrysId = textField_1.getText();
@@ -222,6 +224,8 @@ public class InsertingIntoATable extends JFrame {
 					e1.printStackTrace();
 				}
 				
+				String theNumInString = String.valueOf(theIdOfTheLastInTable);
+				
 				String newTableEntrysFirstName = textField_2.getText();
 				String newTableEntrysLastName = textField_3.getText();
 				String newTableEntrysEmail = textField_4.getText();
@@ -229,7 +233,7 @@ public class InsertingIntoATable extends JFrame {
 				try {
 					String createString =
 							"INSERT INTO " + tableToAddTo +
-							" VALUES ('" + theIdOfTheLastInTable + "', '" + newTableEntrysFirstName + "', '" + newTableEntrysLastName + "', '" + newTableEntrysEmail + "');";
+							" VALUES ('" + theNumInString + "', '" + newTableEntrysFirstName + "', '" + newTableEntrysLastName + "', '" + newTableEntrysEmail + "');";
 					System.out.println("LOOK HERE FULL STRING OF INSERT INTO:" + createString);
 					System.out.println("Conn of the new class: " + conn);
 					theGuiClass.executeUpdate(conn, createString);

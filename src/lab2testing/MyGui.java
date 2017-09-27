@@ -295,14 +295,21 @@ public class MyGui extends JFrame {
 		return email;
 	}
 	
-	public int getNumberImAt() throws SQLException
+	public int getNumberImAt() throws SQLException // was int
 	{		
+		if (conn == null)
+		{
+		runn();
+		}
+			
+		System.out.println("kkkkkkkkkkkkkkkkkkkkkk");
 		while ( resultSet.next() != false )
 		{
 			resultSet.next();
 		}
 		
 		int theId = resultSet.getInt("id");
+		//int theId = resultSet.getInt("id");
 		
 		return theId;
 	}
