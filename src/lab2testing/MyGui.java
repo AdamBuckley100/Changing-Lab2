@@ -351,7 +351,7 @@ public class MyGui extends JFrame {
 		contentPane.add(lblLastName, gbc_lblLastName);
 
 		textField_2 = new JTextField(20);
-		String theLastName = sendBackFirstName();
+		String theLastName = sendBackLastName();
 		textField_2.setText(theLastName);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
