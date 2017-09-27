@@ -377,7 +377,7 @@ public class MyGui extends JFrame {
 		contentPane.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
 
-		// BUTTON NEXT:
+		// THE NEXT BUTTON
 		JButton btnNext = new JButton("Next");
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
@@ -388,7 +388,37 @@ public class MyGui extends JFrame {
 				//we cant make a new connection each time next button is pressed!
 
 				try {
-					resultSet.next ();
+					
+					//new
+					
+					//ResultSet whatIsNext = null;
+					boolean whatIsNext = true;
+					
+					if ( (whatIsNext = resultSet.next() ) == false ) // if theres nothing next
+					{
+						
+						if (whatIsNext == false) // no next call made
+						{
+							//dont allow it to go past at all
+							// show the previous on screen (previous IS the last one)
+							
+							resultSet.previous();
+							
+							String idVal = resultSet.getString("id");
+							String firstNameVal = resultSet.getString("firstname");
+							String lastNameVal = resultSet.getString("lastname");
+							String emailVal = resultSet.getString("email");
+							
+							textField.setText(idVal);
+							textField_1.setText(firstNameVal);
+							textField_2.setText(lastNameVal);
+							textField_3.setText(emailVal);
+						}
+					}
+					
+					//end of new
+					
+					// resultSet.next (); <-- not needed the next was done in the above if statment.
 					String idVal = resultSet.getString("id");
 					String firstNameVal = resultSet.getString("firstname");
 					String lastNameVal = resultSet.getString("lastname");
