@@ -303,7 +303,8 @@ public class MyGui extends JFrame {
 
 	public int getNumberImAt() throws SQLException // was int
 	{		
-		int theId = 0;
+		int count = 0;
+		int idToSendBack = 0;
 		
 		assignConnNull();
 		
@@ -312,25 +313,38 @@ public class MyGui extends JFrame {
 			runn();
 		}
 		
-		if( resultSet.getFetchSize() == 0)
-		{
-			theId = 0;
-		}
-		else
-		{
+//		if( resultSet.)
+//		{
+//			System.out.println("EVERYTIME x1");
+//			theId = 0;
+//		}
 			
 		System.out.println("kkkkkkkkkkkkkkkkkkkkkk");
 		while ( resultSet.next() != false )
 		{
-			resultSet.next();
+			System.out.println("INITIAL WHILE");
+			count = count + 1;
 		}
 		
-		resultSet.previous();
-
-		theId = resultSet.getInt("id");
-		//int theId = resultSet.getInt("id");
+		if (count == 0)
+		{
+			System.out.println("AAAA");
+			idToSendBack = 0;
+			System.out.println("HEYHEY the IF x1");
 		}
-		return theId;
+		else
+		{
+			//resultSet.previous();
+			System.out.println("HEYHEY the ELSE is"  + String.valueOf(count));
+			resultSet.previous();
+			int theId = resultSet.getInt("id");
+			System.out.println("EXTREMELY"  + String.valueOf(count));
+			
+			idToSendBack = theId + 1;
+		}
+		//int theId = resultSet.getInt("id");
+		
+		return idToSendBack;
 	}
 
 	/**

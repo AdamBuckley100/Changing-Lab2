@@ -224,7 +224,7 @@ public class InsertingIntoATable extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				theIdOfTheLastInTable++;
+				//theIdOfTheLastInTable++;
 
 				String theNumInString = String.valueOf(theIdOfTheLastInTable);
 
