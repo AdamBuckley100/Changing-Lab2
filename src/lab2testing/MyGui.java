@@ -78,7 +78,7 @@ public class MyGui extends JFrame {
 	private JButton btnConfirmUpdates;
 
 	/** The name of the table we are testing with */
-	private final String globalTableName = "web_members4";
+	private final String globalTableName = "web_members5";
 	private JButton btnClickHereTo;
 
 	/**
@@ -133,7 +133,7 @@ public class MyGui extends JFrame {
 
 			theStatement = conn.createStatement(); // let this happen ONE time.
 
-			resultSet = theStatement.executeQuery("select * from web_members4"); // ONE time.
+			resultSet = theStatement.executeQuery("select * from web_members5"); // ONE time.
 
 		} catch (SQLException e) {
 			System.out.println("ERROR: Could not connect to the database");
@@ -210,14 +210,19 @@ public class MyGui extends JFrame {
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select id from web_members4");
+		ResultSet resultSet = theStatement.executeQuery("select id from web_members5");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String id = "";
 
+		int theId;
+		
 		if( resultSet.next() )
 		{
-			id = resultSet.getString("id");
+			
+			//id = resultSet.getString("id"); String.valueOf(i)
+			theId = resultSet.getInt("id");
+			id = String.valueOf(theId);
 		}
 
 		System.out.println("id is " + id);
@@ -232,7 +237,7 @@ public class MyGui extends JFrame {
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select firstname from web_members4");
+		ResultSet resultSet = theStatement.executeQuery("select firstname from web_members5");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String firstName = "";
@@ -254,7 +259,7 @@ public class MyGui extends JFrame {
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select lastname from web_members4");
+		ResultSet resultSet = theStatement.executeQuery("select lastname from web_members5");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String lastName = "";
@@ -276,7 +281,7 @@ public class MyGui extends JFrame {
 
 		Statement theStatement = conn.createStatement();
 
-		ResultSet resultSet = theStatement.executeQuery("select email from web_members4");
+		ResultSet resultSet = theStatement.executeQuery("select email from web_members5");
 		// Note: above replaced Data with web_members3. You can change "where id=11" to any number value.
 
 		String email = "";
@@ -388,36 +393,36 @@ public class MyGui extends JFrame {
 				//we cant make a new connection each time next button is pressed!
 
 				try {
-					
+
 					//new
-					
+
 					//ResultSet whatIsNext = null;
 					boolean whatIsNext = true;
-					
+
 					if ( (whatIsNext = resultSet.next() ) == false ) // if theres nothing next
 					{
-						
+
 						if (whatIsNext == false) // no next call made
 						{
 							//dont allow it to go past at all
 							// show the previous on screen (previous IS the last one)
-							
+
 							resultSet.previous();
-							
+
 							String idVal = resultSet.getString("id");
 							String firstNameVal = resultSet.getString("firstname");
 							String lastNameVal = resultSet.getString("lastname");
 							String emailVal = resultSet.getString("email");
-							
+
 							textField.setText(idVal);
 							textField_1.setText(firstNameVal);
 							textField_2.setText(lastNameVal);
 							textField_3.setText(emailVal);
 						}
 					}
-					
+
 					//end of new
-					
+
 					// resultSet.next (); <-- not needed the next was done in the above if statment.
 					String idVal = resultSet.getString("id");
 					String firstNameVal = resultSet.getString("firstname");
@@ -455,33 +460,33 @@ public class MyGui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				try {
-					
+
 					//new
-				
+
 					boolean whatIsPrevious = true;
-					
+
 					if ( (whatIsPrevious = resultSet.previous() ) == false ) // if theres nothing next
 					{
 						if (whatIsPrevious == false) // no prev call made
 						{
 							//dont allow it to go past at all
 							// show the next on screen (next IS the first one)
-							
+
 							resultSet.next();
-							
+
 							String idVal = resultSet.getString("id");
 							String firstNameVal = resultSet.getString("firstname");
 							String lastNameVal = resultSet.getString("lastname");
 							String emailVal = resultSet.getString("email");
-							
+
 							textField.setText(idVal);
 							textField_1.setText(firstNameVal);
 							textField_2.setText(lastNameVal);
 							textField_3.setText(emailVal);
 						}
 					}
-//					else
-//					{
+					//					else
+					//					{
 					//end of new
 					String idVal = resultSet.getString("id");
 					String firstNameVal = resultSet.getString("firstname");
@@ -498,7 +503,7 @@ public class MyGui extends JFrame {
 					//								+ ", fistname = " + firstNameVal
 					//								+ ", lastname = " + lastNameVal
 					//								+ ", email = " + emailVal);
-//					}
+					//					}
 				} catch (SQLException e1) {
 					System.out.println("error 4 OK?");
 					e1.printStackTrace();
@@ -552,21 +557,21 @@ public class MyGui extends JFrame {
 		gbc_btnDeleteTheTable.gridx = 1;
 		gbc_btnDeleteTheTable.gridy = 15;
 		contentPane.add(btnDeleteTheTable, gbc_btnDeleteTheTable);
-		
-				lblAddTableOption = new JLabel("Add Table Option: (Put name of table below)");
-				GridBagConstraints gbc_lblAddTableOption = new GridBagConstraints();
-				gbc_lblAddTableOption.insets = new Insets(0, 0, 5, 0);
-				gbc_lblAddTableOption.gridx = 1;
-				gbc_lblAddTableOption.gridy = 17;
-				contentPane.add(lblAddTableOption, gbc_lblAddTableOption);
-		
-				textField_5 = new JTextField();
-				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-				gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-				gbc_textField_5.gridx = 1;
-				gbc_textField_5.gridy = 18;
-				contentPane.add(textField_5, gbc_textField_5);
-				textField_5.setColumns(10);
+
+		lblAddTableOption = new JLabel("Add Table Option: (Put name of table below)");
+		GridBagConstraints gbc_lblAddTableOption = new GridBagConstraints();
+		gbc_lblAddTableOption.insets = new Insets(0, 0, 5, 0);
+		gbc_lblAddTableOption.gridx = 1;
+		gbc_lblAddTableOption.gridy = 17;
+		contentPane.add(lblAddTableOption, gbc_lblAddTableOption);
+
+		textField_5 = new JTextField();
+		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
+		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_5.gridx = 1;
+		gbc_textField_5.gridy = 18;
+		contentPane.add(textField_5, gbc_textField_5);
+		textField_5.setColumns(10);
 
 		label = new JLabel("");
 		GridBagConstraints gbc_label = new GridBagConstraints();
@@ -574,38 +579,38 @@ public class MyGui extends JFrame {
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 19;
 		contentPane.add(label, gbc_label);
-		
-				btnAddtheTable = new JButton("Add The Table");
-				btnAddtheTable.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
+
+		btnAddtheTable = new JButton("Add The Table");
+		btnAddtheTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 
 
-						String tableNameInputted = textField_5.getText(); //textField4 is what was put in add text input field.
+				String tableNameInputted = textField_5.getText(); //textField4 is what was put in add text input field.
 
-						// Use that String above to add the table specified.
+				// Use that String above to add the table specified.
 
-						try {
-							String createString =
-									"CREATE TABLE " + tableNameInputted + " ( " +
-											"ID varchar(40), " +
-											"FIRSTNAME varchar(40), " +
-											"LASTNAME varchar(40), " +
-											"EMAIL varchar(40), " +
-											"PRIMARY KEY (ID))" ;
-							executeUpdate(conn, createString);
-							System.out.println("Created a table");
-						} catch (SQLException e) {
-							System.out.println("ERROR: Could not create the table");
-							e.printStackTrace();
-							return;
-						}
-					}
-				});
-				GridBagConstraints gbc_btnAddtheTable = new GridBagConstraints();
-				gbc_btnAddtheTable.insets = new Insets(0, 0, 5, 0);
-				gbc_btnAddtheTable.gridx = 1;
-				gbc_btnAddtheTable.gridy = 20;
-				contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
+				try {
+					String createString =
+							"CREATE TABLE " + tableNameInputted + " ( " +
+									"ID varchar(40), " +
+									"FIRSTNAME varchar(40), " +
+									"LASTNAME varchar(40), " +
+									"EMAIL varchar(40), " +
+									"PRIMARY KEY (ID))" ;
+					executeUpdate(conn, createString);
+					System.out.println("Created a table");
+				} catch (SQLException e) {
+					System.out.println("ERROR: Could not create the table");
+					e.printStackTrace();
+					return;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnAddtheTable = new GridBagConstraints();
+		gbc_btnAddtheTable.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAddtheTable.gridx = 1;
+		gbc_btnAddtheTable.gridy = 20;
+		contentPane.add(btnAddtheTable, gbc_btnAddtheTable);
 
 		lblUpdateTable = new JLabel("Update Table:");
 		GridBagConstraints gbc_lblUpdateTable = new GridBagConstraints();
@@ -712,7 +717,7 @@ public class MyGui extends JFrame {
 				System.out.println(noOfRowsInTheTable);
 
 				String theFirstNameChangeInputted = textField_7.getText();
-				
+
 				String theLastNameChangeInputted = textField_8.getText();
 				String theEmailChangeInputted = textField_9.getText();
 
@@ -736,12 +741,12 @@ public class MyGui extends JFrame {
 				// now change the fname,lname and email to what is in text fields of GUI.
 
 				System.out.println("look here: the id is " + theIdInputted);
-				
+
 				try {
 					String createString =
 							"UPDATE " + globalTableName +
 							" SET " + "firstname = '" + theFirstNameChangeInputted + "', " +"lastname = '" + theLastNameChangeInputted + "', " + "email = '" + theEmailChangeInputted + "'" +
-									" WHERE id = " + theIdInputted + ";";
+							" WHERE id = " + theIdInputted + ";";
 					System.out.println("LOOK HERE FULL STRING:" + createString);
 					executeUpdate(conn, createString);
 					System.out.println("Updated the table of ID: " + theIdInputted);
@@ -758,14 +763,14 @@ public class MyGui extends JFrame {
 		gbc_btnConfirmUpdates.gridx = 1;
 		gbc_btnConfirmUpdates.gridy = 35;
 		contentPane.add(btnConfirmUpdates, gbc_btnConfirmUpdates);
-		
+
 		btnClickHereTo = new JButton("Click here to find out how to insert to a table of your choice");
 		btnClickHereTo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+
 				//make a blank window pop up
-				
+
 				InsertingIntoATable ins = new InsertingIntoATable();
 				ins.setVisible(true);
 			}
